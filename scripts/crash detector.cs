@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class crashdetector : MonoBehaviour
 {
     CircleCollider2D headCollider;
+    [SerializeField] AudioClip crashSFX;
+    bool hasCrash = false;
 
     void Start()
     {
@@ -12,11 +14,13 @@ public class crashdetector : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("ground"))
+        if (collision.collider.CompareTag("ground") && !hasCrash)
         {
             if (collision.otherCollider == headCollider)
             {
-                Invoke("reloadScene", 0.7f);
+                hasCrash = true;
+                GetComponent<AudioSource>().PlayOneShot(crashSFX);
+                Invoke("reloadScene", 1.5f);
             }
         }
     }

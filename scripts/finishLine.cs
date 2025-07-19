@@ -20,7 +20,8 @@ public class finishLine : MonoBehaviour
 
                 if (Application.CanStreamedLevelBeLoaded(level))
                 {
-                    Invoke(nameof(reloadScene), 0.7f);
+                    GetComponent<AudioSource>().Play();
+                    Invoke(nameof(reloadScene), 1.5f);
                 }
                 else
                 {
